@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.oucs.mystores.ui.menu.MenuFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menu_to_edit_store"
+            app:destination="@id/editStoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editStoreFragment"
+        android:name="com.oucs.mystores.ui.addstore.EditStoreFragment"
+        android:label="@string/add_store"
+        tools:layout="@layout/fragment_edit_store" >
+        <action
+            android:id="@+id/action_edit_store_to_menu"
+            app:destination="@id/menuFragment" />
+        <argument
+            android:name="idStore"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_menu"
+        app:destination="@id/menuFragment"/>
+</navigation>

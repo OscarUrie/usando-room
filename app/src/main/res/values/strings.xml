@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">My Stores</string>
+    <string name="add_store">Add Store</string>
+    <string name="my_description">This is a description</string>
+    <string name="button_save">save</string>
+    <string name="required_field">Required</string>
+    <string name="phone_field">Phone</string>
+    <string name="name_store">Name</string>
+    <string name="web_store">Website</string>
+    <string name="optional_field">Optional</string>
+    <string name="image_store">URL image</string>
+    <string name="action_save_success">Store saved</string>
+    <string name="edit_store">Edit Store</string>
+    <string name="title_for_delete_store">Delete this store?</string>
+    <string name="to_cancel">Cancel</string>
+    <string name="to_delete">Delete</string>
+    <string name="choose_option">Choose an option</string>
+    <string name="not_such_for_intent">No such app for this action</string>
+    <string name="not_such_label">No such</string>
+    <string name="url_not_found">URL not found</string>
+    <string-array name="options_for_item">
+        <item>Call store</item>
+        <item>Go to website</item>
+        <item>@string/to_delete</item>
+    </string-array>
+</resources>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Mis Tiendas</string>
+    <string name="add_store">Agregar Tienda</string>
+    <string name="my_description">esta es una descricion</string>
+    <string name="button_save">Guardar</string>
+    <string name="required_field">Requerido</string>
+    <string name="phone_field">Telefono</string>
+    <string name="name_store">Nombre</string>
+    <string name="web_store">Sitio web</string>
+    <string name="optional_field">Opcional</string>
+    <string name="image_store">URL de la imagen</string>
+    <string name="action_save_success">Tienda guardada</string>
+    <string name="edit_store">Editar Tienda</string>
+    <string name="title_for_delete_store">¿Eliminar esta tienda?</string>
+    <string name="to_cancel">Cancelar</string>
+    <string name="to_delete">Eliminar</string>
+    <string name="choose_option">Selecciona una opcion</string>
+    <string name="not_such_for_intent">Not such app for this action</string>
+    <string name="not_such_label">Not such</string>
+    <string name="url_not_found">URL not found</string>
+    <string-array name="options_for_item">
+        <item>LLamar a la tienda</item>
+        <item>Ir a sitio</item>
+        <item>Eliminar</item>
+    </string-array>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--common-->
+    <dimen name="common_padding_small">4dp</dimen>
+    <dimen name="common_padding_min">8dp</dimen>
+    <dimen name="common_padding_default">16dp</dimen>
+    <dimen name="common_padding_medium">24dp</dimen>
+    <!--item store-->
+    <dimen name="height_item_store">200dp</dimen>
+    <dimen name="common_padding_image">88dp</dimen>
+</resources>

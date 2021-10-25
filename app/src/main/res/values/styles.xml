@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--style for label in item store-->
+    <style name="TitleItemStoreBase" parent="Widget.MaterialComponents.TextView">
+        <item name="android:background">@color/title_item_background</item>
+    </style>
+    <!--style for all text layouts-->
+    <style name="TextLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/color_text_hint</item>
+        <item name="hintTextColor">@color/color_accent</item>
+        <item name="boxStrokeColor">@color/color_accent</item>
+        <item name="endIconMode">clear_text</item>
+    </style>
+</resources>
