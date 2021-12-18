@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.menu.MenuFragment">
+    tools:context=".ui.menu.StoreFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_stores"
         android:layout_width="match_parent"
@@ -25,4 +25,10 @@
         android:contentDescription="@string/my_description"
         android:src="@drawable/ic_add_business"
         tools:ignore="DuplicateSpeakableTextCheck" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:visibility="visible"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

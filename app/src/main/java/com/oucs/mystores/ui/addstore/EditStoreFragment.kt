@@ -8,16 +8,17 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.textfield.TextInputLayout
-import com.oucs.mystores.MainActivity
+import com.oucs.mystores.ui.MainActivity
 import com.oucs.mystores.R
-import com.oucs.mystores.common.StoreApplication
 import com.oucs.mystores.databinding.FragmentEditStoreBinding
-import com.oucs.mystores.model.Store
+import com.oucs.mystores.model.EditStoreViewModel
+import com.oucs.mystores.model.entities.Store
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +30,11 @@ class EditStoreFragment : Fragment() {
     private val args:EditStoreFragmentArgs by navArgs()
     private val coroutineScope = CoroutineScope(Dispatchers.Main.immediate)
     private var idStore=-1L
+    private lateinit var viewModel: EditStoreViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(EditStoreViewModel::class.java)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,18 +95,17 @@ class EditStoreFragment : Fragment() {
     }
 
     private fun chargeStoreData(id:Long) {
-        var storeToEdit:Store
-        coroutineScope.launch {
-            withContext(Dispatchers.Default){
-                storeToEdit = StoreApplication.db.storeDao().getStoreById(id)
+        viewModel.getStore(id).observe(viewLifecycleOwner){
+            if (it!=null){
+                binding.apply {
+                    nameStore.setText(it.name)
+                    webPageStore.setText(it.webSite)
+                    imagePageStore.setText(it.imageURL)
+                    phoneStore.setText(it.phone)
+                }
             }
-            binding.apply {
-                //can not apply directly the string in EditText text property
-                //also can be nameStore = storeToEdit.name.editable()
-                nameStore.setText(storeToEdit.name)
-                webPageStore.setText(storeToEdit.webSite)
-                imagePageStore.setText(storeToEdit.imageURL)
-                phoneStore.setText(storeToEdit.phone)
+            else{
+                Toast.makeText(requireActivity(),"Store Not found",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -114,7 +119,7 @@ class EditStoreFragment : Fragment() {
         //action for to press back home button
         return when (item.itemId){
             android.R.id.home -> {
-                backToHome()
+                 backToHome()
                 true
             }
             R.id.action_save_store -> {
@@ -160,23 +165,13 @@ class EditStoreFragment : Fragment() {
     }
     private fun saveStore() {
         hideKeyword()
-        coroutineScope.launch {
-            val store = Store(
-                name = binding.nameStore.text.toString().trim(),
-                phone = binding.phoneStore.text.toString().trim(),
-                webSite = binding.webPageStore.text.toString().trim(),
-                imageURL = binding.imagePageStore.text.toString().trim()
-            )
-            withContext(Dispatchers.Default){
-                if (idStore == -1L){
-                    StoreApplication.db.storeDao().addStore(store)
-                }
-                else{
-                    store.id = idStore
-                    StoreApplication.db.storeDao().updateStore(store)
-                }
-            }
-        }
+        val store = Store(
+            name = binding.nameStore.text.toString().trim(),
+            phone = binding.phoneStore.text.toString().trim(),
+            webSite = binding.webPageStore.text.toString().trim(),
+            imageURL = binding.imagePageStore.text.toString().trim()
+        )
+        viewModel.saveStore(idStore,store)
     }
     private fun hideKeyword(){
         val view:View? = activity?.currentFocus

@@ -1,10 +1,9 @@
-package com.oucs.mystores.ui.menu
+package com.oucs.mystores.ui.menu.old
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.oucs.mystores.R
@@ -12,18 +11,18 @@ import com.oucs.mystores.databinding.ItemStoreBinding
 import com.oucs.mystores.model.entities.Store
 
 class StoreAdapter(
-    private val onClickItem: OnClickItem): ListAdapter<Store,RecyclerView.ViewHolder>(
-        StoreDiffCallback()
-    ) {
+    private var storeList: MutableList<Store>
+    ,private val onClickItem: OnClickItem
+): RecyclerView.Adapter<StoreAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_store,parent,false)
         return ViewHolder(view)
     }
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val store=getItem(position)
-        with(holder as ViewHolder){
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val store=storeList[position]
+        with(holder){
             binding.storeName.text = store.name
             binding.isMyFavorite.isChecked = store.favorite
             binding.imagePhoto.load(store.imageURL){
@@ -32,6 +31,16 @@ class StoreAdapter(
             }
         }
     }
+    override fun getItemCount(): Int {
+        return storeList.size
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun setSotoreList(stores:List<Store>){
+        storeList.clear()
+        storeList.addAll(stores)
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)
         ,View.OnClickListener,View.OnLongClickListener{
         val binding = ItemStoreBinding.bind(view)
@@ -39,17 +48,17 @@ class StoreAdapter(
             view.setOnClickListener(this)
             binding.isMyFavorite.setOnClickListener {
                 val favorite = binding.isMyFavorite.isChecked
-                getItem(adapterPosition).favorite=favorite
-                onClickItem.onClickMyFavoriteStore(getItem(adapterPosition))
+                storeList[adapterPosition].favorite=favorite
+                onClickItem.onClickMyFavoriteStore(storeList[adapterPosition])
             }
             view.setOnLongClickListener(this)
         }
         override fun onClick(v: View?) {
-            onClickItem.onClickStore(getItem(adapterPosition).id)
+            onClickItem.onClickStore(storeList[adapterPosition].id)
         }
 
         override fun onLongClick(v: View?): Boolean {
-            onClickItem.onDoubleClickStore(getItem(adapterPosition))
+            onClickItem.onDoubleClickStore(storeList[adapterPosition])
             return true
         }
     }
@@ -57,14 +66,5 @@ class StoreAdapter(
         fun onClickStore(storeId:Long)
         fun onClickMyFavoriteStore(store: Store)
         fun onDoubleClickStore(store: Store)
-    }
-    class StoreDiffCallback:DiffUtil.ItemCallback<Store>(){
-        override fun areItemsTheSame(oldItem: Store, newItem: Store): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Store, newItem: Store): Boolean {
-            return oldItem.id == newItem.id
-        }
     }
 }

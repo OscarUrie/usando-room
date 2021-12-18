@@ -18,6 +18,13 @@
     <string name="not_such_for_intent">Not such app for this action</string>
     <string name="not_such_label">Not such</string>
     <string name="url_not_found">URL not found</string>
+    <string name="error_api">Error de red</string>
+    <string name="error_response">Error del servidor</string>
+    <string name="get_error">Error al obtener la tienda</string>
+    <string name="insert_error">Error al agregar la tienda</string>
+    <string name="update_error">Error al actualizar la tienda</string>
+    <string name="delete_error">Error al borrar la tienda</string>
+    <string name="unknown_error">Error desconocido</string>
     <string-array name="options_for_item">
         <item>LLamar a la tienda</item>
         <item>Ir a sitio</item>
